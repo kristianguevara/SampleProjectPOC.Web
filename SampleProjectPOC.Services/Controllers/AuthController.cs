@@ -29,5 +29,22 @@ namespace SampleProjectPOC.Services.Controllers
             }
             return "Successfully logged in";
         }
+
+        [Route("list")]
+        [HttpPost]
+        public List<Users> login([FromBody] Users login)
+        {
+            List<Users> lists = new List<Users>();
+            if (ModelState.IsValid)
+            {
+                using (var db = new MainContext())
+                {
+                    var query = db.Users.ToList();
+                    lists = query.ToList();
+                    if (lists.Count == 0) { string test =  "No rows"; }
+                }
+            }
+            return lists;
+        }
     }
 }
